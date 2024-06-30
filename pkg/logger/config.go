@@ -3,8 +3,8 @@ package logger
 import "io"
 
 type Config struct {
-	outType       string
-	writer        io.Writer
-	level         string
-	withTimestamp bool
+	OutType       string
+	Writer        io.Writer
+	Level         string
+	WithTimestamp bool
 }

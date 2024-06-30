@@ -1,0 +1,10 @@
+# HTTP
+read_timeout = 5
+write_timeout = 5
+max_connections = 30
+
+# Global Logger
+log_out_type = "text"
+log_location = "log/system.log"
+log_level = "debug"
+log_timestamp = true

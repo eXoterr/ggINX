@@ -43,7 +43,7 @@ func (slogLogger *sLogLogger) WithAttribute(attribute Attribute) Logger {
 
 func (slogLogger *sLogLogger) Setup(config *Config) error {
 
-	switch config.level {
+	switch config.Level {
 	case "info":
 		slogLogger.logLevel = slog.LevelInfo
 	case "error":
@@ -53,7 +53,7 @@ func (slogLogger *sLogLogger) Setup(config *Config) error {
 	case "warn":
 		slogLogger.logLevel = slog.LevelWarn
 	default:
-		return fmt.Errorf("unknown logger level: %s", config.level)
+		return fmt.Errorf("unknown logger level: %s", config.Level)
 	}
 
 	// Set logging level option
@@ -62,7 +62,7 @@ func (slogLogger *sLogLogger) Setup(config *Config) error {
 		Level: slogLogger.logLevel,
 	}
 
-	if !config.withTimestamp {
+	if !config.WithTimestamp {
 		opts.ReplaceAttr = func(groups []string, a slog.Attr) slog.Attr {
 			if a.Key == "time" {
 				a.Value = slog.Value{}
@@ -72,13 +72,13 @@ func (slogLogger *sLogLogger) Setup(config *Config) error {
 		}
 	}
 
-	switch config.outType {
+	switch config.OutType {
 	case "json":
-		handler = slog.NewJSONHandler(config.writer, opts)
+		handler = slog.NewJSONHandler(config.Writer, opts)
 	case "text":
-		handler = slog.NewTextHandler(config.writer, opts)
+		handler = slog.NewTextHandler(config.Writer, opts)
 	default:
-		return fmt.Errorf("unknown logger type: %s", config.outType)
+		return fmt.Errorf("unknown logger type: %s", config.OutType)
 	}
 
 	instance := slog.New(handler)

@@ -17,10 +17,10 @@ func TestLoggerText(t *testing.T) {
 	buffer := bytes.NewBuffer([]byte{})
 
 	cfg := &Config{
-		outType:       "text",
-		writer:        buffer,
-		level:         LEVEL_INFO,
-		withTimestamp: false,
+		OutType:       "text",
+		Writer:        buffer,
+		Level:         LEVEL_INFO,
+		WithTimestamp: false,
 	}
 
 	log := New()
@@ -90,10 +90,10 @@ func TestLoggerJSON(t *testing.T) {
 	buffer := bytes.NewBuffer([]byte{})
 
 	cfg := &Config{
-		outType:       "json",
-		writer:        buffer,
-		level:         LEVEL_INFO,
-		withTimestamp: false,
+		OutType:       "json",
+		Writer:        buffer,
+		Level:         LEVEL_INFO,
+		WithTimestamp: false,
 	}
 
 	log := New()
