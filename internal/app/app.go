@@ -45,7 +45,5 @@ func (app *Application) Start(configPath string) error {
 		return err
 	}
 
-	app.logger.Info("app started")
-
 	return nil
 }
