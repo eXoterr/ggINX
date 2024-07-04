@@ -4,6 +4,8 @@ import (
 	"os"
 
 	"github.com/eXoterr/ggINX/internal/config"
+	"github.com/eXoterr/ggINX/internal/network/tcp"
+	"github.com/eXoterr/ggINX/internal/websites/reader"
 	"github.com/eXoterr/ggINX/pkg/logger"
 )
 
@@ -44,6 +46,27 @@ func (app *Application) Start(configPath string) error {
 	if err != nil {
 		return err
 	}
+
+	rdr := reader.New()
+	websites, err := rdr.Read("websites")
+	if err != nil {
+		return err
+	}
+
+	stop := make(chan struct{})
+
+	for _, site := range websites {
+		listener := tcp.New()
+		err := listener.Setup(site.Host+":"+site.Port, app.config.HTTP)
+		if err != nil {
+			app.logger.Error(err.Error())
+			continue
+		}
+
+		go listener.Listen(stop)
+	}
+
+	<-stop
 
 	return nil
 }

@@ -25,7 +25,7 @@ func (tcp *TCPImpl) Setup(addr string, conf config.HTTP) error {
 	return nil
 }
 
-func (tcp *TCPImpl) Listen() {
+func (tcp *TCPImpl) Listen(stop <-chan struct{}) {
 	defer tcp.listener.Close()
 
 	for {
